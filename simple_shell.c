@@ -28,10 +28,7 @@ int main(void)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-		{
 			write(STDOUT_FILENO, "$ ", 2);
-			fflush(stdout);
-		}
 		if (getline(&line, &size, stdin) == -1)
 		{
 			if (isatty(STDIN_FILENO))
@@ -45,12 +42,11 @@ int main(void)
 			free(argv);
 			continue;
 		}
-		if (builtins(argv, line))
+		if (builtins(argv))
 		{
 			free(argv);
 			continue;
 		}
-
 		child_pid = fork();
 		if (child_pid == -1)
 		{

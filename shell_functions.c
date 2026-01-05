@@ -68,12 +68,10 @@ char **slicing_str(char *str)
 	return (tokens);
 }
 
-int builtins(char **argv, char *line)
+int builtins(char **argv)
 {
 	if (strcmp(argv[0], "exit") == 0)
-	{
-		free(argv);
 		exit(0);
-	}
-	return (0);
+	else
+		return (0);
 }
