@@ -67,3 +67,14 @@ char **slicing_str(char *str)
 	tokens[i] = NULL;
 	return (tokens);
 }
+
+int builtins(char **argv, char *line)
+{
+	if (strcmp(argv[0], "exit") == 0)
+	{
+		free(argv);
+		free(line);
+		exit(0);
+	}
+	return (0);
+}

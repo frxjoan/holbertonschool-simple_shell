@@ -45,6 +45,9 @@ int main(void)
 			free(argv);
 			continue;
 		}
+		if (builtins(argv, line))
+			continue;
+
 		child_pid = fork();
 		if (child_pid == -1)
 		{
