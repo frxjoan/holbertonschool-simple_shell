@@ -69,32 +69,6 @@ char **slicing_str(char *str)
 }
 
 /**
- * prompt - displays the shell prompt
- *
- * Description:
- * Prints the current user name and working directory followed by
- * a dollar sign. If the working directory cannot be retrieved,
- * a '?' is displayed instead.
- */
-void prompt(void)
-{
-	struct passwd *pw = getpwuid(getuid());
-	char cwd[1024];
-	char *user;
-
-	if (!pw)
-		user = "unknown";
-	else
-		user = pw->pw_name;
-
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		printf("%s:?$ ", user);
-	else
-		printf("%s:%s$ ", user, cwd);
-	fflush(stdout);
-}
-
-/**
  * main - entry point of the simple shell
  *
  * Description:
@@ -115,7 +89,7 @@ int main(void)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			prompt();
+			write(STDOUT_FILENO, "$ ", 2);
 		if (getline(&line, &size, stdin) == -1)
 		{
 			if (isatty(STDIN_FILENO))
