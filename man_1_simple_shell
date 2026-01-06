@@ -1,1 +1,38 @@
-temporarily empty
+```man
+.TH HSH 1 "Simple Shell" "Holberton School"
+.SH NAME
+hsh \- simple UNIX command interpreter
+
+.SH SYNOPSIS
+.B hsh
+.RI [ command ]
+
+.SH DESCRIPTION
+.B hsh
+is a simple shell program that executes commands read from standard input.
+It behaves similarly to /bin/sh for basic command execution.
+
+The shell works in both interactive and non-interactive modes.
+
+.SH USAGE
+Interactive mode:
+.PP
+$ ./hsh
+($) /bin/ls
+($) exit
+
+Non-interactive mode:
+.PP
+$ echo "/bin/ls" | ./hsh
+
+.SH EXIT STATUS
+Returns 0 on success. Errors are reported to standard error.
+
+.SH ENVIRONMENT
+Uses the current environment for command execution.
+
+.SH AUTHORS
+See AUTHORS file.
+
+.SH SEE ALSO
+sh(1)
