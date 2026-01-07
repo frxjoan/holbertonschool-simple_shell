@@ -23,7 +23,7 @@ int main(void)
 	char *line = NULL;
 	char **argv = NULL;
 	size_t size = 0;
-	int ret;
+	int ret, last_status = 0;
 
 	while (1)
 	{
@@ -34,7 +34,7 @@ int main(void)
 			if (isatty(STDIN_FILENO))
 				write(STDOUT_FILENO, "\n", 1);
 			free(line);
-			exit(0);
+			exit(last_status);
 		}
 		argv = slicing_str(line);
 		if (!argv || !argv[0])
@@ -43,7 +43,8 @@ int main(void)
 			continue;
 		}
 		ret = fork_and_exe(argv);
-		if (ret == -1 || ret == 127)
+		last_status = ret;
+		if (ret != 0)
 		{
 			free(argv);
 			continue;
