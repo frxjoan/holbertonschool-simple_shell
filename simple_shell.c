@@ -42,11 +42,6 @@ int main(void)
 			free(argv);
 			continue;
 		}
-		if (builtins(argv))
-		{
-			free(argv);
-			continue;
-		}
 		ret = fork_and_exe(argv);
 		if (ret == -1 || ret == 127)
 		{
