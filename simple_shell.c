@@ -57,8 +57,8 @@ int main(void)
 		if (child_pid == 0)
 		{
 			execve(argv[0], argv, NULL);
-			perror("execve");
-			exit(1);
+			fprintf(stderr, "%s:, No such a file or directory\n", argv[0]);
+			exit(127);
 		}
 		else
 			wait(NULL);
