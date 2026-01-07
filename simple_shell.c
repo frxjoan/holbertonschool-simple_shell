@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <errno.h>
 #include <sys/types.h>
 #include <pwd.h>
 
@@ -37,12 +38,7 @@ int main(void)
 			exit(0);
 		}
 		argv = slicing_str(line);
-		if (!argv || !argv[0])
-		{
-			free(argv);
-			continue;
-		}
-		if (builtins(argv))
+		if (!argv || !argv[0] || argv[1])
 		{
 			free(argv);
 			continue;
@@ -50,14 +46,14 @@ int main(void)
 		child_pid = fork();
 		if (child_pid == -1)
 		{
-			perror("Error:");
+			fprintf(stderr, "fork: %s\n", strerror(errno));
 			free(argv);
 			continue;
 		}
 		if (child_pid == 0)
 		{
 			execve(argv[0], argv, NULL);
-			fprintf(stderr, "%s:, No such a file or directory\n", argv[0]);
+			fprintf(stderr, "%s: No such file or directory\n", argv[0]);
 			exit(127);
 		}
 		else
