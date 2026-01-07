@@ -103,7 +103,7 @@ char *_getenv(const char *name)
 char *split_path(char *cmd)
 {
 	char *path = _getenv("PATH");
-	char *path_cpy, dir, res;
+	char *path_cpy, *dir, *res;
 
 	if (!path || !cmd || cmd[0] == '\0')
 		return (NULL);
