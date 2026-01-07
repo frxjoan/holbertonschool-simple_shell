@@ -38,7 +38,7 @@ int main(void)
 			exit(0);
 		}
 		argv = slicing_str(line);
-		if (!argv || !argv[0] || argv[1])
+		if (!argv || !argv[0])
 		{
 			free(argv);
 			continue;
