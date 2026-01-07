@@ -72,9 +72,65 @@ char **slicing_str(char *str)
 int builtins(char **argv)
 {
 	if (strcmp(argv[0], "exit") == 0)
-    {
+	{
 		exit(0);
-        return (1);
-    }
+		return (1);
+	}
 	return (0);
+}
+
+char *_getenv(const char *name)
+{
+	unsigned int i = 0;
+	char *ptr = environ[0];
+	int len = strlen(name);
+
+	while (environ[i])
+	{
+		if (strncmp(environ[i], name, len) == 0)
+		{
+			if (environ[i][len] == '=')
+			{
+				ptr = environ[i] + len + 1;
+				return (ptr);
+			}
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+char *split_path(char *cmd)
+{
+	char *path = _getenv("PATH");
+	char *path_cpy, dir, res;
+
+	if (!path || !cmd || cmd[0] == '\0')
+		return (NULL);
+
+	path_cpy = strdup(path);
+	if (!path_cpy)
+		return (NULL);
+
+	dir = strtok(path_cpy, ":");
+	while (dir)
+	{
+		res = malloc(strlen(dir) + strlen(cmd) + 2);
+		if (!res)
+		{
+			free(path_cpy);
+			return (NULL);
+		}
+		sprintf(res, "%s/%s", dir, cmd);
+
+		if (access(res, X_OK) == 0)
+		{
+			free(path_cpy);
+			return (res);
+		}
+		free(res);
+		dir = strtok(NULL, ":");
+	}
+	free(path_cpy);
+	return (NULL);
 }
