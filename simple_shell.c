@@ -48,6 +48,7 @@ int main(int ac, char **av)
 		if (builtins(argv))
 		{
 			free(argv);
+			free(line);
 			continue;
 		}
 
