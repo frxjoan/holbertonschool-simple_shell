@@ -73,10 +73,12 @@ int builtins(char **argv)
 {
 	if (strcmp(argv[0], "exit") == 0 && !argv[1])
 		return (2);
-	return (0);
 
 	if (strcmp(argv[0], "env") == 0 && !argv[1])
+	{
 		_printenv(environ);
+		return (1);
+	}
 	return (0);
 }
 

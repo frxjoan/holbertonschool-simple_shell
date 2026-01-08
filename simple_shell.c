@@ -50,9 +50,9 @@ int main(int ac, char **av)
 		{
 			free(argv);
 			free(line);
-			line = NULL; /* optionnel mais propre */
+			line = NULL;
 			if (built == 2)
-				exit(last_status); /* ou exit(0) selon consigne */
+				exit(last_status);
 			continue;
 		}
 
