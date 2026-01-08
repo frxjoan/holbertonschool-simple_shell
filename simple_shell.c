@@ -24,7 +24,7 @@ int main(int ac, char **av)
 	unsigned long line_no = 0;
 	char **argv = NULL;
 	size_t size = 0;
-	int last_status = 0;
+	int last_status = 0, built;
 	(void)ac;
 
 	while (1)
@@ -45,10 +45,14 @@ int main(int ac, char **av)
 			free(argv);
 			continue;
 		}
-		if (builtins(argv))
+		built = builtins(argv);
+		if (built)
 		{
 			free(argv);
 			free(line);
+			line = NULL; /* optionnel mais propre */
+			if (built == 2)
+				exit(last_status); /* ou exit(0) selon consigne */
 			continue;
 		}
 
