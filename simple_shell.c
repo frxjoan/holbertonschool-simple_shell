@@ -45,6 +45,12 @@ int main(int ac, char **av)
 			free(argv);
 			continue;
 		}
+		if (builtins(argv))
+		{
+			free(argv);
+			continue;
+		}
+
 		last_status = run_command(argv, av[0], line_no);
 		free(argv);
 		continue;

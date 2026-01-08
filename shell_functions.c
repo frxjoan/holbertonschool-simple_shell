@@ -71,7 +71,7 @@ char **slicing_str(char *str)
 
 int builtins(char **argv)
 {
-	if (strcmp(argv[0], "exit") == 0)
+	if (strcmp(argv[0], "exit") == 0 && !argv[1])
 	{
 		exit(0);
 		return (1);
