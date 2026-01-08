@@ -18,12 +18,14 @@
  *
  * Return: Always 0 on normal exit
  */
-int main(void)
+int main(int ac, char **av)
 {
 	char *line = NULL;
+	unsigned long line_no = 0;
 	char **argv = NULL;
 	size_t size = 0;
-	int ret, last_status = 0;
+	int last_status = 0;
+	(void)ac;
 
 	while (1)
 	{
@@ -36,19 +38,15 @@ int main(void)
 			free(line);
 			exit(last_status);
 		}
+		line_no++;
 		argv = slicing_str(line);
 		if (!argv || !argv[0])
 		{
 			free(argv);
 			continue;
 		}
-		ret = fork_and_exe(argv);
-		last_status = ret;
-		if (ret != 0)
-		{
-			free(argv);
-			continue;
-		}
+		last_status = run_command(argv, av[0], line_no);
 		free(argv);
+		continue;
 	}
 }

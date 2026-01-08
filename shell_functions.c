@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/wait.h>
-#include <sys/types.h>
+#include <sys/types.h>	
 #include <pwd.h>
 
 /**
@@ -100,7 +100,7 @@ char *_getenv(const char *name)
 	return (NULL);
 }
 
-char *split_path(char *cmd)
+char *split_path(const char *cmd)
 {
 	char *path = _getenv("PATH");
 	char *path_cpy, *dir, *res;
