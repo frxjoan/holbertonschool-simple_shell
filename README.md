@@ -20,19 +20,22 @@ Compile the shell using:
 
 ```bash
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+```
 Usage
 Interactive mode
-bash
+```bash
 
 $ ./hsh
 $ ls
 $ /bin/ls
 $ env
 $ exit
+```
 Non-interactive mode
-bash
+```bash
 
 echo "/bin/ls" | ./hsh
+```
 Features
 Displays a prompt ($ ) in interactive mode
 
@@ -72,9 +75,10 @@ NAME
 hsh — simple UNIX command interpreter
 
 SYNOPSIS
-bash
+```bash
 
 ./hsh
+```
 
 DESCRIPTION
 hsh is a minimal shell capable of executing simple commands.
