@@ -1,38 +1,121 @@
-```man
-.TH HSH 1 "Simple Shell" "Holberton School"
+.TH HSH 1 "January 2026" "Holberton School" "User Commands"
 .SH NAME
 hsh \- simple UNIX command interpreter
-
 .SH SYNOPSIS
 .B hsh
-.RI [ command ]
-
 .SH DESCRIPTION
 .B hsh
-is a simple shell program that executes commands read from standard input.
-It behaves similarly to /bin/sh for basic command execution.
+is a simple UNIX command-line interpreter inspired by the standard
+shell. It reads commands from standard input and executes them.
 
 The shell works in both interactive and non-interactive modes.
 
 .SH USAGE
-Interactive mode:
-.PP
-$ ./hsh
-($) /bin/ls
-($) exit
+When launched without arguments, the shell displays a prompt and waits
+for user input.
 
-Non-interactive mode:
+Example:
 .PP
-$ echo "/bin/ls" | ./hsh
+.nf
+$ ./hsh
+$ ls
+$ /bin/ls
+$ env
+$ exit
+.fi
+
+.SH MODES
+.TP
+.B Interactive mode
+When standard input is a terminal, the shell displays a prompt
+and waits for commands.
+
+.TP
+.B Non-interactive mode
+When input is piped into the shell, commands are read and executed
+without displaying a prompt.
+
+Example:
+.PP
+.nf
+echo "ls" | ./hsh
+.fi
+
+.SH BUILT-IN COMMANDS
+.TP
+.B exit
+Exits the shell.
+The shell exits with the status of the last executed command.
+
+.TP
+.B env
+Prints the current environment variables.
+
+.SH COMMAND EXECUTION
+The shell executes commands using the following logic:
+.IP \[bu] 2
+If the command contains a slash (/), it is treated as a direct path.
+.IP \[bu]
+Otherwise, the shell searches for the command in the directories
+listed in the PATH environment variable.
+.IP \[bu]
+The shell checks that the file exists, is not a directory,
+and has execute permissions before execution.
+
+.SH ERROR HANDLING
+Errors are printed using the following format:
+.PP
+.nf
+shell_name: line_number: command: error_message
+.fi
 
 .SH EXIT STATUS
-Returns 0 on success. Errors are reported to standard error.
+The shell returns the following exit statuses:
+.TP
+.B 0
+Success.
+.TP
+.B 126
+Permission denied or command is a directory.
+.TP
+.B 127
+Command not found.
+.TP
+.B 128 + signal
+Command terminated by a signal.
+
+On end-of-file (Ctrl+D), the shell exits with the status of the last
+executed command.
 
 .SH ENVIRONMENT
-Uses the current environment for command execution.
+The shell uses the following environment variables:
+.TP
+.B PATH
+A list of directories separated by colons used to locate executables.
 
-.SH AUTHORS
-See AUTHORS file.
+.SH LIMITATIONS
+The shell does not support:
+.IP \[bu] 2
+Command separators (;)
+.IP \[bu]
+Pipes (|)
+.IP \[bu]
+Redirections (<, >, >>)
+.IP \[bu]
+Wildcard expansion (*)
+.IP \[bu]
+Quoted strings
+.IP \[bu]
+Job control
+
+.SH FILES
+.TP
+.B hsh
+Executable file for the shell.
+
+.SH AUTHOR
+Written by Holberton School students.
 
 .SH SEE ALSO
-sh(1)
+.BR sh (1),
+.BR bash (1)
