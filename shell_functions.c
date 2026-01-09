@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/wait.h>
-#include <sys/types.h>	
+#include <sys/types.h>
 #include <pwd.h>
 
 /**
@@ -69,6 +69,15 @@ char **slicing_str(char *str)
 	return (tokens);
 }
 
+/**
+ * builtins - Check and execute built-in shell commands
+ * @argv: Array of arguments passed to the shell
+ *
+ * Description: This function checks if the command entered by the user
+ * is a built-in command such as "exit" or "env" and executes it.
+ *
+ * Return: 2 if the command is "exit", 1 if "env", 0 otherwise
+ */
 int builtins(char **argv)
 {
 	if (strcmp(argv[0], "exit") == 0 && !argv[1])
@@ -82,6 +91,16 @@ int builtins(char **argv)
 	return (0);
 }
 
+/**
+ * _getenv - Retrieve the value of an environment variable
+ * @name: Name of the environment variable to search for
+ *
+ * Description: This function searches the environment variables
+ * and returns a pointer to the value associated with the given name.
+ *
+ * Return: Pointer to the value of the environment variable, or NULL
+ * if not found
+ */
 char *_getenv(const char *name)
 {
 	unsigned int i = 0;
@@ -103,6 +122,15 @@ char *_getenv(const char *name)
 	return (NULL);
 }
 
+/**
+ * split_path - Locate a command using the PATH environment variable
+ * @cmd: Command name to search for
+ *
+ * Description: This function searches each directory listed in the PATH
+ * environment variable to find an executable file matching the command.
+ *
+ * Return: Full path to the executable if found, otherwise NULL
+ */
 char *split_path(const char *cmd)
 {
 	char *path = _getenv("PATH");

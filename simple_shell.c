@@ -8,15 +8,16 @@
 #include <pwd.h>
 
 /**
- * main - entry point of the simple shell
+ * main - Entry point of the simple shell program
+ * @ac: Argument count
+ * @av: Argument vector
  *
- * Description:
- * Runs an infinite loop that displays a prompt, reads user input,
- * parses the command, and executes it in a child process.
- * Handles EOF (Ctrl+D), errors, and simple command execution
- * without PATH resolution or built-in commands.
+ * Description: This function runs an infinite loop that displays
+ * a prompt, reads user input, parses commands, handles built-in
+ * commands, and executes external programs.
  *
- * Return: Always 0 on normal exit
+ * Return: Always returns 0 on success, or exits with the last
+ * command status on failure
  */
 int main(int ac, char **av)
 {
