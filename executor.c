@@ -47,7 +47,7 @@ int resolve_cmd(const char *cmd, char **out_path, int *allocated)
 }
 
 /**
- * precheck_path - checks validity of an executable path
+ * validate_exec_path - checks validity of an executable path
  * @path: resolved executable path
  * @is_dir: flag set to 1 if path refers to a directory
  *
@@ -60,7 +60,7 @@ int resolve_cmd(const char *cmd, char **out_path, int *allocated)
  * 126 if permission is denied or path is a directory,
  * 127 if the file does not exist.
  */
-int precheck_path(const char *path, int *is_dir)
+int validate_exec_path(const char *path, int *is_dir)
 {
 	struct stat st;
 
@@ -153,7 +153,7 @@ int run_command(char **argv, const char *shell, unsigned long line_no)
 		return (print_err(shell, line_no, argv[0], 127, is_dir));
 	if (rc)
 		return (rc);
-	rc = precheck_path(path, &is_dir);
+	rc = validate_exec_path(path, &is_dir);
 	if (rc)
 		return (cleanup_and_return(allocated, path,
 	print_err(shell, line_no, argv[0], rc, is_dir)));
